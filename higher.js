@@ -50,8 +50,8 @@ console.log(sum)
 const prices = [
 	{ type: 'cardigan', price: 50 },
 	{ type: 'polo', price: 100 },
-	{ type: 't-shirt blå', price: 225 },
-	{ type: 't-shirt randig', price: 300 },
+	{ type: 't-shirt blå', price: 225 },  //175
+	{ type: 't-shirt randig', price: 300 },  //250
 	{ type: 't-shirt med hål', price: 100 }
 ]
 let discounted = prices.filter(sweater => {
@@ -63,4 +63,51 @@ discounted.forEach(sweater => {
 })
 
 // Kompaktare variant:
-prices.filter(sweater => sweater.price > 200).forEach(sweater => console.log(sweater.type))
+// prices.filter(sweater => sweater.price > 200).forEach(sweater => console.log(sweater.type))
+
+
+function myFilter(list, callback) {
+	let newList = []
+	for( let i=0; i<list.length; i++ ) {
+		if( callback(list[i]) ) {
+			newList.push( list[i] )
+		}
+	}
+	return newList
+}
+
+
+
+// Vad ska jag betala för tröjorna?
+let toPay = prices.map( sweater => {
+	if( sweater.price > 200 ) {
+		return sweater.price - 50
+	} else {
+		return sweater.price
+	}
+})
+toPay.forEach(price => console.log(`Du ska betala ${price} kr.`))
+
+function myMap(list, callback) {
+	let newList = []
+	for( let i=0; i<list.length; i++ ) {
+		newList.push( callback(list[i]) )
+	}
+	return newList
+}
+
+
+// Finns det någon polo i affären?
+let found = prices.find(sweater => sweater.type === 'jeans')
+if( found ) {
+	console.log('Vi hittade: ', found)
+} else {
+	console.log('Det fanns inga jeans i tröjaffären!')
+}
+
+
+// Räkna ut summa med reduce
+let sumWithReduce = data.reduce( (accumulator, current) => {
+	return accumulator + current  // acc. är delsumman
+}, 0 )
+console.log('Summan med reduce är: ', sumWithReduce)
